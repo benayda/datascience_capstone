@@ -3,6 +3,6 @@ This repo includes the files for the Data Science Certificate Program Capstone P
 
 The R Markdown file for the Data Science Capstone report - capstone_final.Rmd
 
-The final report as a PDF - Capstone_final_report_bpda.pdf
+The final report as a PDF - Predicting_Star_Ratings_in_Yelp_Reviews.pdf
 
 The RStudio Presenter file for the Data Science Capstone presentation - bpda_pres.Rpres
