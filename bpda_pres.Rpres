@@ -1,0 +1,47 @@
+Predicting Star Ratings in Yelp Reviews based on the Frequency of Positive and Negative Sentiment Words in Review
+========================================================
+author: Benay Dara-Abrams
+date: November 21, 2015
+autosize: true
+
+Introduction - Question and Approach
+========================================================
+- How well does the frequency of occurrence of positive and negative sentiment words in Yelp reviews predict star ratings?
+- Aim to better understand linguistic basis for social review systems
+- Sentiment Analysis gaining widespread acceptance
+- Widely-cited sentiment lexicon developed by Minqing Hu & Bing Liu (approx. 6800 words)
+  - http://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html
+- Sentiment lexicon developed by Finn Arup Nielsen with valences
+  - http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=6010
+
+Methods and Data
+========================================================
+- Data Processing - read in reviews with jsonlite
+- Exploratory Data Analysis to interrogate question
+  - Frequency of occurrence of positive & negative words
+  - Challenges - word in different parts of speech & words inside other words
+  - Paste space on ends of words in list and review to match whole words
+  - Divide number of words by review length to normalize
+  - Boxplots showing star ratings vs. normalized positive & negative word frequencies
+    - Upward trend for positive, downward for negative words with increasing stars
+
+Model Construction and Adjusted R-Squared Values
+========================================================
+Adjusted R-Squared as % of variability in ratings that can be explained using model predictor(s)
+```{r, warning=FALSE, echo=FALSE}
+model <- c("Hu & Liu Positive Word Frequency", "Hu & Liu Negative Word Frequency", "Nielsen Positive Word Frequency", "Nielsen Negative Word Frequency", "Hu & Liu Positive + Negative Word Frequencies", "Nielsen Positive + Negative Word Frequencies", "Hu & Liu + Nielsen Positive + Negative Word Frequencies")
+num_pred <- c(1, 1, 1, 1, 2, 2, 4)
+adj_r_sqrd_per <- c(10, 7, 8, 8, 15, 14, 16)
+df <- data.frame(model, num_pred, adj_r_sqrd_per)
+names(df) <- c("Model", "No. Predictors", "Adj. R Sqrd as %")
+kable(df, format="html")
+```
+Results and Discussion
+========================================================
+- Final model - Hu & Liu and Nielsen positive and negative word frequencies, all 4 predictors
+- Analysis of variance to compute p-value for final model with all 4 predictors
+- Very low p-value of 0
+- Reject null hypothesis that four final model predictors do not contribute to model fit
+- Residuals in normal Q-Q plot approximately following normal distribution for final model
+- Final model using all 4 predictors demonstrates how well frequency of positive and negative sentiment words in reviews can predict their star ratings, answering question posed in project.
+
